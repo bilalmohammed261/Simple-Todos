@@ -42,14 +42,28 @@ const initialTodosList = [
 // Write your code here
 
 class SimpleTodos extends Component {
+  state = {
+    todoList: initialTodosList,
+  }
+
+  deleteTodo = id => {
+    const {todoList} = this.state
+    this.setState({todoList: todoList.filter(todo => todo.id !== id)})
+  }
+
   render() {
+    const {todoList} = this.state
     return (
       <div className="bg-container">
         <div className="container">
           <h1 className="heading">Simple Todos</h1>
           <ul>
-            {initialTodosList.map(todo => (
-              <TodoItem key={todo.id} title={todo.title} />
+            {todoList.map(todo => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                deleteTodo={this.deleteTodo}
+              />
             ))}
           </ul>
         </div>
